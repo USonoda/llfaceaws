@@ -13,10 +13,10 @@ classes = ['honoka', 'kotori', 'umi', 'hanayo', 'rin', 'maki', 'nico', 'eli', 'n
 nb_classes = len(classes)
 img_width, img_height = 70, 70
 
-result_dir = '../app/results'
+result_dir = 'results_150pt'
 
 # このディレクトリにテストしたい画像を格納しておく
-test_data_dir = 'dataset/test'
+test_data_dir = 'dataset/validation/umi'
 
 def model_load():
     # VGG16, FC層は不要なので include_top=False

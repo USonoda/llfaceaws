@@ -10,23 +10,23 @@ import matplotlib.pyplot as plt
 ssl._create_default_https_context = ssl._create_unverified_context
 
 # 分類するクラス
-classes = ['honoka', 'kotori', 'umi', 'hanayo', 'rin', 'maki', 'nico', 'eli', 'nozomi', 'others']
+classes = ['honoka', 'kotori', 'umi', 'hanayo', 'rin', 'maki', 'nico', 'eli', 'nozomi']
 nb_classes = len(classes)
 
 img_width, img_height = 150, 150
 
 # トレーニング用とバリデーション用の画像格納先
-train_data_dir = 'dataset/train/face_150'
-validation_data_dir = 'dataset/validation/face_150'
+train_data_dir = 'dataset/train/all'
+validation_data_dir = 'dataset/validation/all'
 
 
-nb_train_samples = 1000
-nb_validation_samples = 300
+nb_train_samples = 500
+nb_validation_samples = 100
 batch_size = 64
 nb_epoch = 20
 
 
-result_dir = 'results_150pt'
+result_dir = 'results_all'
 if not os.path.exists(result_dir):
     os.mkdir(result_dir)
 
@@ -98,7 +98,7 @@ def plot_history(history):
     plt.xlabel('epoch')
     plt.ylabel('loss')
     plt.legend(['loss', 'val_loss'], loc='lower right')
-    plt.show()
+    plt.savefig('result_all.png')
 
 
 if __name__ == '__main__':
