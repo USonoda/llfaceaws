@@ -20,9 +20,9 @@ train_data_dir = 'dataset/train/all'
 validation_data_dir = 'dataset/validation/all'
 
 
-nb_train_samples = 500
-nb_validation_samples = 100
-batch_size = 64
+nb_train_samples = 720
+nb_validation_samples = 81
+batch_size = 16
 nb_epoch = 20
 
 

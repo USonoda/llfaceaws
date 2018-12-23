@@ -4,6 +4,7 @@ from keras import backend as K
 from keras.preprocessing.image import array_to_img, img_to_array, load_img
 from keras.models import load_model
 import matplotlib.pyplot as plt
+import os
 
 
 K.set_learning_phase(1)  # set learning phase
@@ -57,13 +58,17 @@ def Grad_Cam(x, layer_name):
 
 model = load_model('results_150pt/finetuning.h5')
 
-jpg_name = 'umi/0_2_52'
-img_path = ('dataset/validation/face_150/' + jpg_name + '.jpg')
+img_dir = 'dataset/validation/face_150/'
+n = 3
 
-x = img_to_array(load_img(img_path, target_size=(150, 150)))
-array_to_img(x)
+fig = plt.figure()
+for i in range(n**2):
+    img_path = (img_dir + os.listdir(img_dir)[i] + '.jpg')
 
-image = Grad_Cam(x, 'block5_conv3')
+    x = img_to_array(load_img(img_path, target_size=(150, 150)))
+    array_to_img(x)
 
-plt.imshow(array_to_img(image))
+    image = Grad_Cam(x, 'block5_conv3')
+
+    plt.imshow(array_to_img(image))
 plt.show()
