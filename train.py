@@ -23,7 +23,7 @@ validation_data_dir = 'dataset/validation/all'
 nb_train_samples = 720
 nb_validation_samples = 81
 batch_size = 16
-nb_epoch = 20
+nb_epoch = 30
 
 
 result_dir = 'results_all'
@@ -89,15 +89,15 @@ def plot_history(history):
     plt.xlabel('epoch')
     plt.ylabel('accuracy')
     plt.legend(['acc', 'val_acc'], loc='lower right')
-    plt.show()
+    # plt.show()
 
     # 損失の履歴をプロット
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('model loss')
-    plt.xlabel('epoch')
-    plt.ylabel('loss')
-    plt.legend(['loss', 'val_loss'], loc='lower right')
+    # plt.plot(history.history['loss'])
+    # plt.plot(history.history['val_loss'])
+    # plt.title('model loss')
+    # plt.xlabel('epoch')
+    # plt.ylabel('loss')
+    # plt.legend(['loss', 'val_loss'], loc='lower right')
     plt.savefig('result_all.png')
 
 

@@ -1,7 +1,7 @@
 import os, sys
 import numpy as np
 from keras.applications.vgg16 import VGG16
-from keras.models import Sequential, Model
+from keras.models import Sequential, Model, load_model
 from keras.layers import Input, Activation, Dropout, Flatten, Dense
 from keras.preprocessing import image
 from keras import optimizers
@@ -11,12 +11,13 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 classes = ['honoka', 'kotori', 'umi', 'hanayo', 'rin', 'maki', 'nico', 'eli', 'nozomi', 'others']
 nb_classes = len(classes)
-img_width, img_height = 70, 70
+img_width, img_height = 150, 150
 
-result_dir = 'results_150pt'
+result_dir = 'results_all/'
 
 # このディレクトリにテストしたい画像を格納しておく
-test_data_dir = 'dataset/validation/umi'
+test_data_dir = 'dataset/test'
+
 
 def model_load():
     # VGG16, FC層は不要なので include_top=False
@@ -43,16 +44,17 @@ def model_load():
 
     return model
 
+
 def evaluation(img_path):
     # モデルのロード
-    model = model_load()
+    model = load_model(result_dir)
 
     filename = img_path
     img = image.load_img(filename, target_size=(img_width, img_height))
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     # 学習時に正規化してるので、ここでも正規化
-    x = x / 255
+    x /= 255
     pred = model.predict(x)[0]
 
     top = 3  # 上位3つを表示
@@ -63,11 +65,7 @@ def evaluation(img_path):
 
 
 if __name__ == '__main__':
-
-    # モデルのロード
-    model = model_load()
-
-    # テスト用画像取得
+    model = load_model(result_dir+'finetuning.h5')
     test_imagelist = os.listdir(test_data_dir)
 
     for test_image in test_imagelist:
@@ -77,8 +75,7 @@ if __name__ == '__main__':
         img = image.load_img(filename, target_size=(img_width, img_height))
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
-        # 学習時に正規化してるので、ここでも正規化
-        x = x / 255
+        x /= 255
         pred = model.predict(x)[0]
 
         top = 3 #上位3つを表示
